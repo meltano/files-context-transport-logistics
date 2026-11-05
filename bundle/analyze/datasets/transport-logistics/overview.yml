@@ -45,7 +45,7 @@ description: |
   - **Everything is an event in time and place.** A shipment is a sequence of milestones (booked,
     collected, at hub, out for delivery, delivered) from several systems, often out of order.
   - **Time zones and planned vs actual.** Performance compares actual times with promised times and
-    windows, often across time zones and daylight saving changes.
+    windows, often across time zones and daylight saving changes (in the UK, between GMT and BST = GMT+01:00).
   - **Several units of work.** An order, a consignment, a parcel, a pallet, a stop, a load and a trip
     are different things, and metrics depend on which one is counted.
   - **Costs are allocated.** Vehicle, driver and fuel costs are incurred per trip or day and must be

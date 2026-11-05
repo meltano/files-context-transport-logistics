@@ -9,11 +9,11 @@ description: |
   | Entity | Grain (one row per…) | Notes |
   |---|---|---|
   | `customer` (shipper) | customer account | Contract, rate card, service levels. For 3PLs, the client whose stock is held |
-  | `location` | address or facility | Depot, hub, warehouse, customer site, port. Latitude, longitude, time zone and opening hours |
+  | `location` | address or facility | Depot, hub, warehouse, customer site, port. Latitude, longitude, IANA time zone (its offset from GMT changes with daylight saving) and opening hours |
   | `order` | customer order (transport or warehouse) | Requested collection and delivery dates or windows, service level, customer reference |
   | `shipment` (consignment) | consignment | From and to locations, weight, volume, pallets or parcels, promised delivery date, tracking reference |
   | `handling_unit` | parcel, pallet or container | Barcode or serial shipping container code (SSCC); container number for ocean freight. Scans are recorded at this grain |
-  | `shipment_event` | milestone or scan | Event type, timestamp with time zone, location, source system, reason code for exceptions |
+  | `shipment_event` | milestone or scan | Event type, timestamp with its offset from GMT, location, source system, reason code for exceptions |
   | `load` / `trip` | vehicle journey | Vehicle, trailer, driver(s), planned and actual start and end, distance, stops |
   | `stop` | stop on a trip | Sequence, location, planned window, arrival and departure, outcome (delivered, failed, refused) |
   | `vehicle` / `trailer` | asset | Registration, type, capacity, fuel type, depot, in-service and disposal dates |

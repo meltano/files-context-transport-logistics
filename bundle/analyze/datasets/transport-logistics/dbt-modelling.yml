@@ -19,8 +19,10 @@ description: |
 
   ## Time zones and windows
 
-  - Store every timestamp in UTC **and** keep the location's IANA time zone (`Europe/London`). Convert
-    to local time to judge a delivery against a local window or cut-off.
+  - Store every timestamp in UTC (GMT+00:00, no daylight saving) **and** keep the location's IANA
+    time zone (`Europe/London`: GMT in winter, BST = GMT+01:00 in summer). Convert to local time to
+    judge a delivery against a local window or cut-off: a 17:00 cut-off in London is 17:00 GMT in
+    winter and 16:00 GMT in summer.
   - Watch daylight saving changes: a window that crosses the clock change is an hour longer or shorter.
   - Define "on time" once, in a macro, with the tolerance and the excused failure reasons (customer
     closed, refused), and reuse it in every model.

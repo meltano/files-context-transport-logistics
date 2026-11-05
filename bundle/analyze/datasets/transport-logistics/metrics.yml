@@ -48,7 +48,7 @@ description: |
   | Order accuracy | Orders despatched with no picking error ÷ orders despatched |
   | Inventory accuracy | Locations (or SKUs) whose counted stock matches the system ÷ locations counted |
   | Dock-to-stock time | Time from goods arriving to being available for picking |
-  | Same-day despatch rate | Orders received before the cut-off and despatched that day ÷ orders received before the cut-off |
+  | Same-day despatch rate | Orders received before the cut-off and despatched that day ÷ orders received before the cut-off. Give the cut-off with its zone: a 15:00 UK cut-off is 15:00 GMT in winter and 14:00 GMT in summer |
   | Storage utilisation | Pallet locations (or square metres) occupied ÷ available |
 
   ## Safety and compliance
