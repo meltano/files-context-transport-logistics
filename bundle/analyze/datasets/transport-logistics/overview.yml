@@ -1,0 +1,58 @@
+version: datasets/v0.3
+title: "Transport and logistics: industry overview"
+questions: What does a transport or logistics organisation's data look like, and where does it come from?
+description: |
+  Industry context for this workspace, for the people and AI assistants working in it. It has no
+  query: it is a briefing to read before modelling or analysing this organisation's data.
+
+  ## Segments
+
+  Transport and logistics covers organisations that move, store and deliver goods (and sometimes
+  people) for themselves or for customers. The segments differ in which entities and metrics matter
+  most:
+
+  - **Road haulage and freight:** full truckload (FTL) and less-than-truckload (LTL) or pallet network
+    loads. Loads, vehicles, drivers, miles, fuel and utilisation drive the data.
+  - **Parcel, courier and last mile:** high volumes of small consignments through hubs and on
+    multi-drop routes. Scans, delivery attempts, first-time delivery and cost per drop drive the data.
+  - **Contract logistics and third-party logistics (3PL):** warehousing, picking and fulfilment for
+    clients. Orders, picks, stock accuracy, productivity and per-client billing drive the data.
+  - **Freight forwarding:** arranging air, ocean and multimodal shipments with customs clearance.
+    Bookings, containers, milestones, carrier rates and margins drive the data.
+  - **Fleet operators and own-account transport:** organisations running vehicles for their own
+    business. Vehicle cost, maintenance, compliance and driver behaviour drive the data.
+  - **Passenger transport:** buses, coaches and rail. Timetables, punctuality and ridership drive the
+    data.
+
+  ## Typical source systems
+
+  | System | Examples | What it holds |
+  |---|---|---|
+  | Transport management system (TMS) | Oracle Transportation Management, Blue Yonder TMS, Descartes, Mandata, Microlise | Orders, loads, routes, rates, carrier bookings, freight costs |
+  | Warehouse management system (WMS) | Manhattan Active WM, Blue Yonder WMS, SAP Extended Warehouse Management, Körber, Mintsoft | Receipts, stock by location, picks, packs, despatches, labour |
+  | Telematics | Samsara, Webfleet, Microlise, Geotab, Motive | Vehicle positions, trips, speed, idling, fuel, driver behaviour events |
+  | Tachograph analysis | Tachomaster, Descartes, Microlise, FleetGO | Driver hours, breaks, infringements |
+  | Proof of delivery and route planning | Paragon, Descartes, OptimoRoute, a driver app | Planned routes, stops, delivery outcomes, signatures, photos |
+  | Carrier and visibility | Carrier EDI and APIs, project44, FourKites | Shipment status events, estimated arrival times |
+  | Forwarding and customs | CargoWise, Descartes, customs declaration systems | Bookings, containers, bills of lading, customs entries |
+  | Fleet maintenance | Fleet maintenance software, workshop systems | Inspections, defects, services, MOTs, parts |
+  | Fuel cards | Shell, BP, Allstar, Keyfuels | Fuel transactions by vehicle and card |
+  | ERP / finance | SAP, Microsoft Dynamics 365, NetSuite, Sage | Invoices, costs, general ledger |
+  | CRM | Salesforce, HubSpot | Customers, quotes, contracts, service level agreements |
+
+  ## What makes the data different
+
+  - **Everything is an event in time and place.** A shipment is a sequence of milestones (booked,
+    collected, at hub, out for delivery, delivered) from several systems, often out of order.
+  - **Time zones and planned vs actual.** Performance compares actual times with promised times and
+    windows, often across time zones and daylight saving changes.
+  - **Several units of work.** An order, a consignment, a parcel, a pallet, a stop, a load and a trip
+    are different things, and metrics depend on which one is counted.
+  - **Costs are allocated.** Vehicle, driver and fuel costs are incurred per trip or day and must be
+    allocated to the stops, customers and shipments that shared them.
+  - **Driver data is employee data.** Telematics and tachograph data monitors people at work. See
+    *Transport and logistics: handling the data*.
+
+  Related datasets: *data model*, *metrics*, *modelling it in dbt*, *handling the data*.
+
+  #transport-logistics #organisation-context

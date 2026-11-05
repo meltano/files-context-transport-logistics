@@ -1,0 +1,61 @@
+version: datasets/v0.3
+title: "Transport and logistics: modelling it in dbt"
+questions: How should raw transport and logistics data be modelled in dbt so that it reconciles?
+description: |
+  Conventions for building dbt models on raw transport and logistics data. They apply on top of the
+  workspace's usual dbt layout: staging, then intermediate, then marts.
+
+  ## Shipment events
+
+  - **Union events from every source into one model** (`int_shipment_events`): TMS, WMS, driver app,
+    carrier EDI (for example ANSI X12 214 or EDIFACT IFTSTA status messages) and visibility platforms.
+    Map each source's status codes to one set of standard milestones in a seed table.
+  - **Order by event time, not load time.** Events arrive late and out of order. Keep both
+    timestamps, and derive each shipment's milestones (first collected, first out for delivery,
+    delivered) with `min`/`max` per milestone rather than "latest row wins".
+  - **Deduplicate** on source, handling unit, event code and timestamp: scanners and EDI resend.
+  - Build `fct_shipments` at shipment grain with one column per milestone timestamp, the promised
+    window and the derived on-time and in-full flags.
+
+  ## Time zones and windows
+
+  - Store every timestamp in UTC **and** keep the location's IANA time zone (`Europe/London`). Convert
+    to local time to judge a delivery against a local window or cut-off.
+  - Watch daylight saving changes: a window that crosses the clock change is an hour longer or shorter.
+  - Define "on time" once, in a macro, with the tolerance and the excused failure reasons (customer
+    closed, refused), and reuse it in every model.
+
+  ## Trips, distance and cost
+
+  - Match telematics trips and tachograph activity to planned trips by vehicle (or driver) and time
+    overlap in an intermediate model. Expect partial and missing matches.
+  - Keep units explicit: miles vs km, litres vs gallons (UK vs US gallons differ), kg vs tonnes. Convert
+    in staging and name columns for their unit (`distance_km`).
+  - Allocate trip costs to stops and shipments with a documented driver (stops, weight, pallets or
+    distance), and test that allocated cost sums back to the trip cost.
+  - Keep carrier invoice costs separate from planned (rated) costs, and reconcile them.
+
+  ## Warehouse
+
+  - Build `fct_warehouse_tasks` at task-line grain with operator, start and end timestamps for
+    productivity, and `fct_inventory_daily` from a daily snapshot per client, SKU and location.
+
+  ## Incremental loads
+
+  Telematics and scan events are high volume. Load them incrementally on event time with a look-back
+  window for late data, and partition by date.
+
+  ## Tests
+
+  - Each delivered shipment has collection before delivery, and no milestone in the future.
+  - Allocated costs sum to the trip or invoice total.
+  - Shipped quantities never exceed ordered quantities without an over-ship flag.
+  - `unique` and `not_null` on shipment, handling unit, trip and stop keys; **accepted values** on
+    standard milestone codes; **freshness** on event sources.
+
+  ## Sensitive columns
+
+  Tag driver, consignee and location columns in the model YAML, for example `meta: {pii: true}`, and
+  keep them out of marts that do not need them. See *Transport and logistics: handling the data*.
+
+  #transport-logistics #organisation-context

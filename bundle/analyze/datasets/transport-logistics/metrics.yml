@@ -1,0 +1,63 @@
+version: datasets/v0.3
+title: "Transport and logistics: key metrics"
+questions: Which metrics does a transport or logistics organisation run on, and how is each calculated?
+description: |
+  Standard definitions of the metrics transport and logistics organisations report. Confirm each one
+  with the operations or finance team before building it: organisations differ on the unit counted
+  (order, shipment, line or parcel), the tolerance on "on time", and which failures are excused.
+
+  ## Service
+
+  | Metric | Definition |
+  |---|---|
+  | On time in full (OTIF) | Orders (or shipments) delivered within the agreed window and with the full quantity ÷ all orders due. State the window tolerance and the unit |
+  | On-time delivery (OTD) | Deliveries within the agreed window ÷ all deliveries, ignoring completeness |
+  | On-time collection | Collections within the agreed window ÷ all collections |
+  | First-time delivery rate | Deliveries completed at the first attempt ÷ all first attempts |
+  | Order fill rate | Order lines (or units) shipped in full from stock ÷ order lines (or units) ordered |
+  | Damage (claims) rate | Shipments with a damage or loss claim ÷ shipments delivered |
+  | Proof of delivery (POD) compliance | Deliveries with a valid POD captured ÷ deliveries |
+
+  ## Fleet and utilisation
+
+  | Metric | Definition |
+  |---|---|
+  | Vehicle utilisation | Hours (or days) vehicles were in use ÷ hours (or days) available |
+  | Load (fill) factor | Weight, volume or pallet spaces used ÷ vehicle capacity, per trip. State which constraint |
+  | Empty running (empty miles) | Distance driven without a load ÷ total distance |
+  | Fuel efficiency | Distance ÷ fuel used (miles per gallon or km per litre), or kWh per km for electric vehicles |
+  | Idle time | Engine-on stationary time ÷ engine-on time |
+  | Emissions intensity | CO2e ÷ tonne-kilometre (or per shipment), using a stated methodology such as the GLEC Framework or ISO 14083 |
+
+  ## Cost and revenue
+
+  | Metric | Definition |
+  |---|---|
+  | Cost per drop (cost per stop) | Total route cost (driver, vehicle, fuel, overheads allocated) ÷ stops completed |
+  | Cost per mile (or km) | Total fleet operating cost ÷ distance driven |
+  | Cost per parcel / pallet / tonne | Total cost ÷ units handled. Choose the unit that matches how customers are charged |
+  | Revenue per mile (or per load) | Revenue ÷ distance, or ÷ loads |
+  | Operating ratio | Operating expenses ÷ operating revenue |
+  | Freight cost as a share of sales | Freight spend ÷ net sales (for shippers) |
+
+  ## Warehouse
+
+  | Metric | Definition |
+  |---|---|
+  | Picks per hour | Order lines (or units) picked ÷ picker labour hours |
+  | Order accuracy | Orders despatched with no picking error ÷ orders despatched |
+  | Inventory accuracy | Locations (or SKUs) whose counted stock matches the system ÷ locations counted |
+  | Dock-to-stock time | Time from goods arriving to being available for picking |
+  | Same-day despatch rate | Orders received before the cut-off and despatched that day ÷ orders received before the cut-off |
+  | Storage utilisation | Pallet locations (or square metres) occupied ÷ available |
+
+  ## Safety and compliance
+
+  | Metric | Definition |
+  |---|---|
+  | Drivers' hours infringements | Infringements found in tachograph analysis ÷ driver duties (or per 1,000 hours driven) |
+  | Harsh events per 100 miles | Harsh braking, acceleration, cornering and speeding events ÷ distance × 100 |
+  | Vehicle off road (VOR) rate | Vehicle-days unavailable for defects or maintenance ÷ vehicle-days |
+  | Incident rate | Collisions or reportable incidents per million miles |
+
+  #transport-logistics #organisation-context

@@ -1,0 +1,43 @@
+version: datasets/v0.3
+title: "Transport and logistics: data model"
+questions: What are the core entities of transport and logistics data, and at what grain should each be modelled?
+description: |
+  The entities most transport and logistics data reduces to, with the grain and key of each. Use it
+  to map raw source tables onto a consistent model. Names are suggestions; keep the organisation's
+  own terms where they already exist.
+
+  | Entity | Grain (one row per…) | Notes |
+  |---|---|---|
+  | `customer` (shipper) | customer account | Contract, rate card, service levels. For 3PLs, the client whose stock is held |
+  | `location` | address or facility | Depot, hub, warehouse, customer site, port. Latitude, longitude, time zone and opening hours |
+  | `order` | customer order (transport or warehouse) | Requested collection and delivery dates or windows, service level, customer reference |
+  | `shipment` (consignment) | consignment | From and to locations, weight, volume, pallets or parcels, promised delivery date, tracking reference |
+  | `handling_unit` | parcel, pallet or container | Barcode or serial shipping container code (SSCC); container number for ocean freight. Scans are recorded at this grain |
+  | `shipment_event` | milestone or scan | Event type, timestamp with time zone, location, source system, reason code for exceptions |
+  | `load` / `trip` | vehicle journey | Vehicle, trailer, driver(s), planned and actual start and end, distance, stops |
+  | `stop` | stop on a trip | Sequence, location, planned window, arrival and departure, outcome (delivered, failed, refused) |
+  | `vehicle` / `trailer` | asset | Registration, type, capacity, fuel type, depot, in-service and disposal dates |
+  | `driver` | driver | Depot, employment type (employed or agency). Personal data: keep only what analysis needs |
+  | `telematics_trip` / `vehicle_event` | trip or event | Distance, duration, idling, fuel, harsh braking or speeding events, from the telematics provider |
+  | `driver_activity` | tachograph activity period | Driving, other work, availability, rest, with start and end times. Infringements as their own entity |
+  | `freight_cost` | cost line | Carrier invoice line, fuel surcharge, accessorial charges (waiting time, tail lift), allocated to shipments |
+  | `warehouse_task` | receipt, pick, putaway or pack line | SKU, quantity, location, operator, start and end timestamps |
+  | `inventory_snapshot` | SKU per location per day | On hand, allocated, damaged, per client |
+
+  ## Relationships
+
+  - An **order** produces one or more **shipments**; a **shipment** has one or more **handling units**.
+  - **Shipment events** belong to a shipment or handling unit, from any number of sources.
+  - A **trip** uses a **vehicle** and **driver**, and visits **stops**; a stop delivers or collects
+    one or more shipments.
+  - **Telematics** and **tachograph** records attach to a vehicle or driver and are matched to trips
+    by time.
+  - **Freight costs** attach to a trip, a carrier invoice or a shipment, and are allocated down to
+    shipments.
+
+  ## Status and history
+
+  Keep every shipment event, not only the latest status, since performance depends on when each
+  milestone happened. Version rate cards, service levels and vehicle assignments with effective dates.
+
+  #transport-logistics #organisation-context

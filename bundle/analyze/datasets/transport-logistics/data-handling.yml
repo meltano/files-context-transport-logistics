@@ -1,0 +1,50 @@
+version: datasets/v0.3
+title: "Transport and logistics: handling the data"
+questions: What care does transport and logistics data need in the warehouse?
+description: |
+  Transport and logistics data tracks drivers at work, the addresses of the people goods are
+  delivered to, and customers' commercial terms. These are general practices for a warehouse holding
+  it. They are not legal or compliance advice: the organisation's legal, compliance and transport
+  managers decide what applies to it.
+
+  ## Classify the data
+
+  | Class | Examples | Handling |
+  |---|---|---|
+  | Driver monitoring data | Telematics positions, driving behaviour events, in-cab camera footage, tachograph records | Personal data about employees. Use it for the purposes drivers were told about, restrict access, and report on individuals only where there is a clear need |
+  | Driver identity and licence data | Name, licence number and categories, driver card number, medical declarations | Restrict to transport and HR roles. Medical data is special category data: keep it out of the warehouse |
+  | Consignee data | Recipient name, address, phone, email, delivery instructions, POD signatures and photos | Personal data. Mask in marts that do not need it; keep photos and signatures in the source system |
+  | Location history | Vehicle GPS trails, stop times | Reveals where drivers and recipients are. Aggregate to trips and stops for most analysis |
+  | Commercial data | Rate cards, customer contracts, carrier costs, margins | Restrict to commercial and finance roles; for 3PLs, separate each client's data |
+  | Customs and trade data | Commercial invoices, declarations, EORI numbers | Restrict and retain as customs rules require |
+
+  ## Practices
+
+  - **Least privilege.** Separate raw, staging and mart schemas, and grant raw telematics and
+    tachograph data only to the pipelines and the people who maintain them.
+  - **Tell drivers, then stay within it.** Monitoring must be transparent and proportionate. Agree
+    with HR what driver-level reporting exists, and avoid new uses of the data without review.
+  - **Client separation.** A 3PL or carrier sharing data with clients must filter each client to its
+    own shipments, stock and costs, with row-level access if clients query the warehouse directly.
+  - **No production data in development** without masking.
+  - **Retention.** Tachograph records must be kept for a set period for enforcement; telematics and
+    proof-of-delivery data should not be kept longer than needed. Agree periods and model deletion
+    explicitly.
+  - **Data subject requests.** Under GDPR and UK GDPR a driver or recipient can ask for their data or
+    for its erasure, so know where each person's data lives.
+
+  ## Regulators and rules to be aware of
+
+  Which apply depends on the organisation's country and activities. Common ones:
+
+  - **UK:** UK GDPR and the ICO's guidance on monitoring workers, drivers' hours and tachograph rules
+    enforced by the Driver and Vehicle Standards Agency (DVSA), operator licensing by the Traffic
+    Commissioners, the Working Time (Road Transport Activities) Regulations, customs declarations
+    with HMRC.
+  - **EU:** GDPR, EU drivers' hours and tachograph regulations, the Mobility Package, the Union Customs
+    Code.
+  - **US:** FMCSA hours-of-service rules and the electronic logging device (ELD) mandate, state privacy
+    laws.
+  - **Dangerous goods:** ADR for road transport, with records of what was carried.
+
+  #transport-logistics #organisation-context
